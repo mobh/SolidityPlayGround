@@ -1,8 +1,13 @@
+// Author: M Ben Hajla
+// Only for educational purposes
+
 pragma solidity ^0.4.0;
 contract ErrorHandlingContract {
-	 // example from Solidity Docs:
-	//In the following function, you can see how require can be used to easily check conditions 
-	// on inputs and how and assert can be used for internal error checking:
+	
+	/*In the following function, you can see how require can be used to easily check conditions 
+	 on inputs and how and assert can be used for internal error checking 
+	 Source: solidity docu.
+	 */
 	
 	function sendHalf(address addr) public payable returns (uint balance) {
 		require(msg.value % 2 == 0); // Only allow even numbers 
