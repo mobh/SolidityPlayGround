@@ -18,12 +18,13 @@ contract DatenTypenContract {
     bytes1 varBytes1; 
     bytes32 varBytes32;
 
-   	//******* 
+   	//****************** 
    	// Enum Types
 	//**********************
     enum Action {ADD, REMOVE, UPDATE}
-    Action myAction = Action.ADD;
-	
+    Action public actionADD = Action.ADD;
+	Action public actionRemove = Action.REMOVE;
+
 
     //**********************
     //Reference Types
@@ -91,6 +92,24 @@ contract DatenTypenContract {
     function getBalance () public view returns (uint)  {
         return this.balance;
         
+    }
+    
+     address private owner;
+    // Modifier
+     modifier isOwner {
+        require(owner == msg.sender);
+        _;
+    }
+    
+    modifier validValue {
+        assert(msg.value >= 1 ether);
+        _;
+    }
+    
+    function withDrawWithCheck() isOwner public payable {
+        varAddress = msg.sender;
+        // Transfer 1 Ether
+        varAddress.transfer(1000000000000000000);
     }
 }
 
