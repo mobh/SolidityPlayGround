@@ -10,21 +10,30 @@ contract DatenTypenContract {
     // Value Types
     //**********************
 
-    bool varBool = false;
-    int8 varInt8 = -128;
-    uint8 varUint = 255;
+	// string
+    string varString;
+    //Boolean
+    bool  varBool = false;
+    //Integer
+    int8  varInt8 = -1;
+    uint8  varUint = 255;
+    uint128 public varResult = 2.5 + 0.5 ;
+   //ufixed8x1 public varResult = 5 / 2;
 
-    byte varByte;
-    bytes1 varBytes1; 
-    bytes32 varBytes32;
-
+    // bytes
+    bytes public varByte;
+    
+    function string2bytes( string s)  public {
+        varByte = bytes(s);
+    }
+   
    	//****************** 
    	// Enum Types
 	//**********************
-    enum Action {ADD, REMOVE, UPDATE}
-    Action public actionADD = Action.ADD;
-	Action public actionRemove = Action.REMOVE;
-
+    enum State { Created, Locked, Inactive }
+    State state = State.Created;
+	State state1 = State.Locked;
+    uint public wert = uint(state1);
 
     //**********************
     //Reference Types
@@ -40,10 +49,6 @@ contract DatenTypenContract {
     } 
     
     Product newProduct;
-
-	// string
-    string varString;
-
     //Arrays
     uint8[] varStringArr;
     uint[10] myFixedArr;
@@ -51,19 +56,15 @@ contract DatenTypenContract {
 	//Mapping 
     mapping(uint => Product) public products;
 
-
-    // Spezial Types
-    address varAddress;
+    // Spezial Types (see docu)
+    address public varAddress = this;
 
 
     //************************ 
     // Functions
     // function (<parameter types>) {internal|external} [pure|constant|view|payable] ˓→[returns (<return types>)]
 	//****************
-    
-    
-    
-  
+   
     function addProduct() public {
         newProduct  = Product({ name: "iPhone", uid: 1 , price: 100, stock: 5 });
         products[newProduct.uid] = newProduct;
@@ -77,15 +78,11 @@ contract DatenTypenContract {
         varAddress.transfer(1000000000000000000);
     }
 	
-	// Fall Back Method
-	function () payable{
-	    
-	  
-	}
+
 	
 	// Constructor
-	function DatenTypenContract () payable {
-	    
+	function DatenTypenContract () public payable {
+	    varAddress = msg.sender;
 	    
 	}
 
@@ -93,6 +90,12 @@ contract DatenTypenContract {
         return this.balance;
         
     }
+    
+    	// Fall Back Method
+	function () payable public{
+	    
+	  
+	}
     
      address private owner;
     // Modifier
