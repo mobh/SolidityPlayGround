@@ -13,3 +13,8 @@ Smart contracts for Ethereum implemented in the Solidity programming language to
 
 *Tokens
 
+Home: https://github.com/mobh/SolidityPlayGround
+
+IDE:  https://remix.ethereum.org/
+
+
