@@ -4,17 +4,41 @@
 pragma solidity ^0.4.4;
 
 /*
- *  SimpleStorage the Blockchain
- * 	The contract should be able to store surname and the age of a Person
+ *  SimpleStorage on the Blockchain
+ * 	The contract should be able to store name and the age of a Person
  *  -Person should be defined as struct
- *  -addPerson method should have 2 Parameters ( surname and age) 
- *  -The added person should be stored in a mapping , the key of the mapping is the Address of the sender
+ *  -addPerson method: has 2 Parameters  
+ *  -The added person should be stored in a mapping , the key of the mapping is the address of the sender
  *
  */
  
 contract SimpleStorageContract {
 
-   
+    address owner;
+    
+    struct Person{
+        string name;
+        uint age;
+    }	
+    mapping (address => Person) public persons;
+    
+    function SimpleStorageContract() public {
+        owner = msg.sender;    
+        
+    }
+    
+    function addPerson(string _name, uint _age) public{
+        
+        Person memory p = Person({ name:_name , age :_age});
+        persons[msg.sender]= p;
+    }
+    
+    function withDraw () payable public{
+        if (msg.sender == owner){
+            owner.transfer(this.balance);
+        }
+        
+    }
     
         
 }
